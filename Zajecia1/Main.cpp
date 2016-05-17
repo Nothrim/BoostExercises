@@ -10,6 +10,7 @@
 #include "Kolej.h"
 #include "Philosophers.h"
 #include "Exam.h"
+
 int main()
 {
 	//Calka z sinusa

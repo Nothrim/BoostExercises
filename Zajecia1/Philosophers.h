@@ -14,7 +14,9 @@ using namespace std;
 using namespace boost;
 minstd_rand generator(time(NULL));
 uniform_int<> distribution(0, MAX_DELAY);
-
+void writeToConsole(string str) {
+	cout << str;
+}
 class Fork {
 private:
 	int number;
@@ -24,14 +26,11 @@ public:
 		semafor = new Semafor(1);
 	}
 	void pickUp() {
-		string o;
-		o.append("Picked up fork nb:").append(to_string(number)).append("\n");
-		cout << o;
+		writeToConsole(string().append("Picked up fork nb:").append(to_string(number)).append("\n"));
 		semafor->wait();
 	}
 	void putDown() {
-		string o;
-		o.append("Put down fork nb:").append(to_string(number)).append("\n");
+		writeToConsole(string().append("Put down fork nb:").append(to_string(number)).append("\n"));
 		semafor->signalize();
 	}
 };
@@ -52,14 +51,15 @@ public:
 					leftFork->pickUp();
 					rightFork->pickUp();
 					int mealTime = distribution(generator);
-					cout << "Philosopher " << number << " is eating meal number " << consumedMeals << " for " << mealTime << " ms" << endl;
+					writeToConsole(string().append("Philosopher ").append(to_string(number)).append(" is eating meal number ").append(to_string(consumedMeals)).append(" for ")
+						.append(to_string(mealTime)).append(" ms\n"));
 					this_thread::sleep_for(chrono::milliseconds(mealTime));
-					cout << "Philosopher " << number << " has finished meal number " << consumedMeals << endl;
+					writeToConsole(string().append("Philosopher ").append(to_string(number)).append(" has finished meal number ").append(to_string(consumedMeals)).append("\n"));
 					++consumedMeals;
 					leftFork->putDown();
 					rightFork->putDown();
 					mealDistributor.signalize();
 		}
-		cout << "Philosopher " << number << " is really fat right now" << endl;
+		writeToConsole(string().append("Philosopher ").append(to_string(number)).append(" is really fat right now\n"));
 	}
 };
