@@ -157,6 +157,7 @@
     <ClInclude Include="Philosophers.h" />
     <ClInclude Include="Producer.h" />
     <ClInclude Include="Semafor.h" />
+    <ClInclude Include="SmolkaExam.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Synchronizacja.h" />
     <ClInclude Include="targetver.h" />

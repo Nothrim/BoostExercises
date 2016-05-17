@@ -10,7 +10,7 @@
 #include "Kolej.h"
 #include "Philosophers.h"
 #include "Exam.h"
-
+#include "SmolkaExam.h"
 int main()
 {
 	//Calka z sinusa
@@ -111,6 +111,27 @@ int main()
 	}
 	task3Group.join_all();
 	cout << "DONE" << endl;
+	getchar();
+	cout << "SMOLKA EXAM"<<endl;
+	cout << "TASK 1"<<endl;
+	boost::mutex sConsoleMutex;
+	STask1 st1(sConsoleMutex);
+	STask1 st2(sConsoleMutex);
+	boost::thread sTask1Thread(st1);
+	boost::thread sTask1Thread2(st2);
+	sTask1Thread.join();
+	sTask1Thread2.join();
+	cout << "DONE" << endl;
+	getchar();
+	cout << "TASK 2" << endl;
+	sN = 75;
+	boost::thread sTask2Thread(sTask2);
+	boost::mutex sTask2Mutex;
+	boost::unique_lock<mutex>sTask2Lock(sTask2Mutex);
+	sTask2Condition.wait(sTask2Lock);
+	for (int i = 0; i < 75; i++) {
+		cout<< sTask2Array[i]<<endl;
+	}
 	getchar();
     return 0;
 }
