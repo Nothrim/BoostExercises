@@ -151,8 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Consumer.h" />
+    <ClInclude Include="Exam.h" />
     <ClInclude Include="Kolej.h" />
     <ClInclude Include="Monitor.h" />
+    <ClInclude Include="Philosophers.h" />
     <ClInclude Include="Producer.h" />
     <ClInclude Include="Semafor.h" />
     <ClInclude Include="stdafx.h" />

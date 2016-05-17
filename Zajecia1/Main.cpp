@@ -8,6 +8,8 @@
 #include "Consumer.h"
 #include "Producer.h"
 #include "Kolej.h"
+#include "Philosophers.h"
+#include "Exam.h"
 int main()
 {
 	//Calka z sinusa
@@ -62,7 +64,52 @@ int main()
 	t2.join();
 	t3.join();
 	t4.join();
-	cout << "DONE";
+	cout << "DONE"<<endl;
+	getchar();
+	cout << "FILOZOFOWIE" << endl;
+	Semafor eating(PHILOSOPHERS - 1);
+
+	Fork* forks[5];
+	thread_group philosophers;
+	for (int i = 0; i<PHILOSOPHERS; i++)
+	{
+		forks[i] = new Fork(i);
+	}
+	for (int i = 0; i<PHILOSOPHERS; i++)
+	{
+		philosophers.create_thread(Philosopher(i, forks[i], forks[(i + (PHILOSOPHERS -1)) % PHILOSOPHERS], eating));
+	}
+	philosophers.join_all();
+	cout << "DONE"<<endl;
+	getchar();
+	cout << "TASK 1" << endl;
+	mutex tConsoleMutex;
+	Task1 taskOne(tConsoleMutex,0);
+	Task1 taskTwo(tConsoleMutex,1);
+	boost::thread th1(taskOne);
+	boost::thread th2(taskTwo);
+	th1.join();
+	th2.join();
+	cout << "DONE" << endl;
+	getchar();
+	cout << "TASK 2" << endl;
+	boost::mutex task2Mutex;
+	Task2 task2DataGenerator(100);
+	boost::thread task2Thread(task2DataGenerator);
+	boost::unique_lock<mutex>task2Lock(task2Mutex);
+	task2DataGenerator.task2isGeneratingData->wait(task2Lock);
+	for (int i = 0; i < 100; i++)cout << task2Array[i] << endl;
+	cout << "DONE" << endl; 
+	getchar();
+	cout << "TASK 3" << endl;
+	thread_group task3Group;
+	Semafor task3Semafor(1);
+	Semafor task3Max3ThreadsSemafor(3);
+	for (int i = 0; i < 10; i++) {
+		task3Group.create_thread(Task3(task3Max3ThreadsSemafor,task3Semafor,i));
+	}
+	task3Group.join_all();
+	cout << "DONE" << endl;
 	getchar();
     return 0;
 }

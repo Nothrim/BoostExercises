@@ -48,6 +48,12 @@
     <ClInclude Include="Kolej.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Philosophers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
